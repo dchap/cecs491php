@@ -1,0 +1,67 @@
+div.control-group {
+   float: left;
+   margin-right: 5em;
+   margin-bottom: 2em;
+}
+
+div.inputs {
+    clear:both;
+    border-top: 20px;
+    margin-top: 20px;
+}
+
+.inputs .btn {
+    float: right;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#modal-form-container {
+    width: 1000px;
+    height: 610px;
+    left: 350px !important;
+    top: 300px !important;
+    overflow: auto;
+    display: none;
+}
+
+label.error {
+    color: red;
+    font-style: italic;
+    font-weight: normal;
+    padding-bottom: 5px;
+}
+
+#modal-errors {
+    clear:both;
+    display: none;
+}
+
+.help-block {
+    float: right;
+}
+
+.projects {
+    margin-left: 20px;
+    float: left;
+}
+
+.upload-indicator {
+    vertical-align: bottom;
+}
+
+h3 {
+    float: left;
+}
+
+#query-form {
+    float: left;
+}
+
+.clear {
+    clear: left;
+}
+
+.btn {
+    margin-left: 20px;
+}

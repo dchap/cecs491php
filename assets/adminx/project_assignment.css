@@ -1,0 +1,56 @@
+label {
+    display: block;
+    text-align: left;
+}
+
+.pad {
+    margin: 10px 0 10px 0;
+}
+
+.select-list {
+    height: 250px;
+    clear:both;
+}
+
+.form-group {
+    float: left;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 150px;
+    height: 350px;
+}
+
+#errors {
+    clear:both;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    text-align: center;
+}
+
+.content {
+    width: 800px;
+}
+
+.top {
+    float:left; 
+    height:50%; 
+    margin-bottom:-50px;
+}
+
+.mid {
+    clear:both; 
+    margin-right: auto;
+    margin-left: auto;
+    width: 70%;
+    position:relative;
+}
+
+fieldset {
+    margin-bottom: 0;
+    padding-top: 0;
+}
+
+input {
+    margin-bottom: 10px;
+}
