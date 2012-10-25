@@ -139,6 +139,7 @@ namespace Lib\Views
             <ul>
                 <li><a href="/pages/data-query/main-query.php">Main Query</a></li>
                 <li><a href="/pages/data-query/visitor-query.php">Visitor Query</a></li>
+                <li><a href="/pages/data-query/realtime-query.php">Real time Query</a></li>
 <?php
         }
         

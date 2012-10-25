@@ -5,7 +5,6 @@ namespace Config\Database
     {
         private static $dbuser = "csulbsha_shark";             //user name for the database
         private static $dbpass = "acoustictelemetry";      //the password to access the database
-        //private static $dbpass = "YES"; 
         private static $dbname = "csulbsha_sharktopus";             //the name of the database
         private static $dbhost = "localhost";
 

@@ -2,6 +2,7 @@
 require_once substr(__FILE__, 0, -4) . '.behind.php';
 use Lib\Views\HTMLControls as HTMLControls;
 use Config\Constants\Query as QueryConstants;
+use Config\Constants\Session_Variables as Session;
 $page = new Lib\Views\Page(Session::User);
 $page->IncludeCss("/assets/data_query/main_query.css");
 $page->IncludeJs("/assets/data_query/main_query.js");
@@ -18,7 +19,7 @@ $(function() {
 
 </script>-->
 
-<h3>Main Query</h3><hr />
+<h3>Real Time Query</h3><hr />
 <form action="realtime-query.behind.php" method="get" class="queryForm form-stacked" id="main-form">
     <fieldset>
         <div class="query-group">
