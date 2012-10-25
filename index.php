@@ -29,71 +29,79 @@ $_SESSION[Session::AccountType] = Session::Superadmin;
     <link rel="stylesheet" type="text/css" href="/assets/shared/global.css" />
     <link rel="stylesheet" type="text/css" href="/assets/home/login.min.css" />
     <script type="text/javascript">
-        $(function() { 
-           
+        $(function()
+        { 
+/*
             // can only show one error or the other when trying to access another page
-            /*var redirect = '<?php //echo isset($redirect) ? $redirect : null; ?>';
+            var redirect = '<?php //echo isset($redirect) ? $redirect : null; ?>';
             var showPermission = '<?php //echo isset($showPermissionError) ? "yes" : null; ?>';
             if (showPermission)
                 $('#error-permission').show();
             else if (redirect)
-                $('#error-login').show();*/
-            
-            
-            function Submit() {
-                              
-                /*$('.errors').hide();
+                $('#error-login').show();
+*/      
+            function Submit()
+            {
+/*
+                $('.errors').hide();
                 var validated = true;
-                if ($('.enter[name=user]').val().trim() == '') {
+                if ($('.enter[name=user]').val().trim() == '')
+                {
                     $('#error-user').fadeIn();
                     validated = false;
                 }
-                if ($('.enter[name=pass]').val().trim() == '') {
+                if ($('.enter[name=pass]').val().trim() == '')
+                {
                     $('#error-pass').fadeIn();
                     validated = false;
                 }
                 if (!validated)
-                    return;*/
-               
-               
-//                $.post('index.behind.php', 
-//                    $('form').serialize(),
-//                    //{name: $('#user').val(), pass: $('#pass').val()},
-//                    function(data) {
-                        
-                        //alert(data);
-                        /*if (data == 'none') {
-                            alert("none");
-                            $('#error-record').fadeIn();
-                        }
-                        else if (data == 'user') {
-                            alert("user");
-                            window.location.replace('<?php //echo Url::Query ?>');
-                        }
-                        else if (data == 'superuser' || data == 'admin' || data == 'superadmin') {                           
-                            alert("admin");
-                            if (redirect)
-                                window.location.replace(redirect);
-                            else*/
-//                                redirect = '<?php //echo Url::Query ?>';
-                                window.location.replace('<?php echo Url::Home ?>');
-                        /*}
-                        else
-                            alert("nothing");*/                              
+                    return;
+
+                $.post('index.behind.php', 
+                    $('form').serialize(),
+                    {name: $('#user').val(), pass: $('#pass').val()},
+                    function(data)
+                {
+                    alert(data);
+                    if (data == 'none')
+                    {
+                        alert("none");
+                        $('#error-record').fadeIn();
+                    }
+                    else if (data == 'user')
+                    {
+                        alert("user");
+                        window.location.replace('<?php //echo Url::Query ?>');
+                    }
+                    else if (data == 'superuser' || data == 'admin' || data == 'superadmin') {                           
+                        alert("admin");
+                    if (redirect)
+                        window.location.replace(redirect);
+                    else
+*/ //                     redirect = '<?php //echo Url::Query ?>';
+                    window.location.replace('<?php echo Url::Home ?>');
+//                 }
+//                 else
+//                    alert("nothing");
+                    
                     //}
                 //); 
             }//End Submit()
             
             $(':button').click(Submit);
             $('form').bind("keypress", 
-                function(e) {
-                    if (e.which == 13) {
+                function(e)
+                {
+                    if (e.which == 13) //13 is Enter key
+                    {
                         Submit();
+                    }
                 }
-            });
-
+            );
             $(':input[name=user]').focus();
-        });
+        }
+    );
     </script> 
 </head>
 <body>
