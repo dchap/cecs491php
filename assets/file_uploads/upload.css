@@ -1,0 +1,23 @@
+/* 
+    Document   : upload
+*/
+
+.hidden {
+    display: none;
+}
+.form-rows {
+    height: 40px;
+    clear: both;
+}
+
+.errorMsgSpans {
+    margin-left: 10px;
+}
+
+table {
+    width: 550px;
+}
+
+.submit-button {
+    vertical-align: top;
+}

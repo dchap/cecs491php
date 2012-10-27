@@ -1,0 +1,27 @@
+div.query-group {
+   float: left;
+   margin-right: 5em;
+   margin-bottom: 2em;
+}
+
+#inputs {
+    clear: both;
+    border-top: 20px;
+    margin-top: 20px;
+}
+
+table {
+    margin-top: 30px;
+    width: 700px;
+}
+
+input {
+    margin-bottom: 10px;
+}
+
+label.error {
+    color: red;
+    font-style: italic;
+    font-weight: normal;
+    padding-bottom: 5px;
+}

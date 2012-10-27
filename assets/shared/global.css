@@ -1,0 +1,60 @@
+/*html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}*/
+
+div.container-fluid {
+    margin-top: 20px;
+}
+
+#spacer {
+    margin: 0 3px 0 3px;
+}
+
+div#errors, div#errors > p {
+    color: red;
+    font-style: italic;
+}
+
+.modal {
+     top: 500px !important;
+     left: 650px !important;
+}
+/*for FireFox*/
+input::-moz-focus-inner
+{   
+    border : 0px;
+} 
+/*for IE8 */
+input[type="submit"]:focus, input[type="button"]:focus
+{     
+    outline : none; 
+}
+
+:-moz-any-link:focus {
+  outline: none;
+}
+
+.upload-indicator {
+    padding-left: 20px;
+    display: none;
+}
+
+.inline-inputs div {
+    float: left;
+}
