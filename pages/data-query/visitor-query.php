@@ -32,7 +32,7 @@ $page->BeginHTML();
         </div>
     </fieldset>
     <fieldset>
-        <?php HTMLControls::DateTimeRange(); ?>
+        <?php HTMLControls::DateTimeRange(); ?> 
     </fieldset>
     <fieldset class="show">
         <p>Show Columns:</p>
