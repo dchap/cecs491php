@@ -46,7 +46,9 @@ namespace Lib\Data_Query
 
             $result = $db->query($sql);
             if (!$result)
-                exit("No results found.");
+            //if ($result == 0)
+                exit("I'm here...");
+                //exit("No results found.");
             
             $column = 0;
             $table = "<table class='bordered-table zebra-striped'>\n<thead class='blue'>\n<tr>\n";

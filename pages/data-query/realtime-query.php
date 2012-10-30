@@ -15,14 +15,14 @@ $page->BeginHTML();
 <form action="realtime-query.behind.php" method="get" class="queryForm form-stacked" id="main-form">
     <fieldset>
         <div class="query-group ">
-            <p>Frequency Codespace:</p>
-            <input class="span3" name="<?php echo QueryConstants::FrequencyCodespace; ?>" value ="A69-1303" type="text" maxlength="15" />
-            <!-- <input class="span3" name="<?php echo QueryConstants::FrequencyCodespace; ?>" type="text" maxlength="15" /> -->
+<!--            <p>Frequency Codespace:</p>-->
+<!--            <input class="span3" name="<?php //echo QueryConstants::FrequencyCodespace; ?>" value ="A69-1303" type="text" maxlength="15" />-->
+<!--             <input class="span3" name="<?php //echo QueryConstants::FrequencyCodespace; ?>" type="text" maxlength="15" /> -->
         </div>
         <div class="query-group ">
-            <p>Transmitter ID:</p>
-            <input class="span2" name="<?php echo QueryConstants::TransmitterID; ?>" value="47436" type="text" maxlength="10" />
-            <!-- <input class="span2" name="<?php echo QueryConstants::TransmitterID; ?>" type="text" maxlength="10" /> -->
+<!--            <p>Transmitter ID:</p>-->
+<!--            <input class="span2" name="<?php //echo QueryConstants::TransmitterID; ?>" value="47436" type="text" maxlength="10" />-->
+<!--             <input class="span2" name="<?php //echo QueryConstants::TransmitterID; ?>" type="text" maxlength="10" />-->
         </div>
         <div class="query-group">
           <p>Results Per Page:</p>
@@ -59,21 +59,21 @@ $page->BeginHTML();
 -->  
     
     <fieldset class="show">
-        <p>Show Columns:</p>
+       <!-- <p>Show Columns:</p> -->
         <div class="show-group">
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v1" checked/>Codespace</label>
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v2" checked /><span id="st-switch">Transmitter ID</span></label>
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="s1" checked disabled/>Station Name</label>
+            <!--<label> --> <input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v1" checked/><!-- Codespace</label>-->
+            <!--<label> --><input <input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v2" checked /><!-- <span id="st-switch">Transmitter ID</span></label> -->
+            <!--<label> --><input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="s1" checked disabled/><!-- Station Name</label> -->
             <input id ="station" type="hidden" name="<?php echo QueryConstants::Fields; ?>[]" value="s1"/>
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="s2"checked/>Station Latitude</label>
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="s3"checked/>Station Longitude</label>
+            <!--<label> --><input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="s2"checked/><!-- Station Latitude</label> -->
+            <!--<label> --><input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="s3"checked/><!-- Station Longitude</label> -->
         </div>
         <div class="show-group">
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v3" checked/>Receiver</label>
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v4" checked />Date</label>
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v5" checked />Time</label>
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v6" checked/>Sensor Value</label>
-            <label><input type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v7" checked/>Sensor Unit</label>
+            <!--<label> --><input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v3" checked/><!-- Receiver</label> -->
+            <!--<label> --><input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v4" checked/><!-- Date</label> -->
+            <!--<label> --><input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v5" checked/><!-- Time</label> -->
+            <!--<label> --><input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v6" checked/><!-- Sensor Value</label> -->
+            <!--<label> --><input type="hidden" type="checkbox" name="<?php echo QueryConstants::Fields; ?>[]" value="v7" checked/><!-- Sensor Unit</label> -->
         </div>
   </fieldset>
 
@@ -81,6 +81,7 @@ $page->BeginHTML();
     <input type="hidden" name="<?php echo QueryConstants::SortBy; ?>" value="stations_name" />
     <input type="hidden" name="<?php echo QueryConstants::SortOrder; ?>" value="asc" />
     <button id="query-button" class="btn primary" data-loading-text="Processing...">Search</button>
+    <!--<input id="query-button" type="hidden" class="btn primary" data-loading-text="Processing..." />
     <!-- <button id="download-button" class="btn" data-loading-text="Creating File...">Download</button> -->
     <img class="upload-indicator" src="/assets/shared/ajax-loader.gif" alt="uploading..." />
 </form>

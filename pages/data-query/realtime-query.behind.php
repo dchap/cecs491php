@@ -5,13 +5,16 @@ spl_autoload_extensions(".php");
 spl_autoload_register();
 use Config\Constants\Query as Constants;
 use Config\Constants\Urls as Urls;
-use Lib\Data_Query\Query_Builder_Visitor as QueryBuilder;
+use Lib\Data_Query\Query_Builder_Realtime as QueryBuilder;
 use Lib\Data_Query\Query_Process as QueryProcess;
 use Lib\Error\Exception_Handler as ExceptionHandler;
 
+//if (isset($_GET['action-type']) && $_GET['action-type'] == 'validate')
 if (isset($_GET['action-type']) && $_GET['action-type'] == 'validate')
 {
-    QueryBuilder::ValidateRequired($_GET); 
+    //QueryBuilder::ValidateRequired is checking for emputy FrequencyCodespace and TransmitterID
+    // we don't want Validate for realtime...
+    //QueryBuilder::ValidateRequired($_GET); 
     $sqlCount = QueryBuilder::GenerateCountQuery($_GET);
     if (QueryProcess::GetCount($sqlCount) == 0)
        ExceptionHandler::Error404("No results found.");

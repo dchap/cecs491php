@@ -12,14 +12,16 @@ $page->BeginHTML();
 
 <h3>Visitor Query</h3><hr />
 <form action="visitor-query.behind.php" method="get" class="queryForm form-stacked" id="main-form">
-    <fieldset>
-        <div class="query-group ">
+<fieldset>
+    <div class="query-group ">
             <p>Frequency Codespace:</p>
-            <input class="span3" name="<?php echo QueryConstants::FrequencyCodespace; ?>" type="text" maxlength="15" />
+            <input class="span3" name="<?php echo QueryConstants::FrequencyCodespace; ?>" value ="A69-1303" type="text" maxlength="15" />
+<!--            <input class="span3" name="<?php //echo QueryConstants::FrequencyCodespace; ?>" type="text" maxlength="15" /> -->
         </div>
         <div class="query-group ">
             <p>Transmitter ID:</p>
-            <input class="span2" name="<?php echo QueryConstants::TransmitterID; ?>" type="text" maxlength="10" />
+            <input class="span2" name="<?php echo QueryConstants::TransmitterID; ?>" value="47436" type="text" maxlength="10" />
+<!--            <input class="span2" name="<?php //echo QueryConstants::TransmitterID; ?>" type="text" maxlength="10" /> -->
         </div>
         <div class="query-group">
           <p>Results Per Page:</p>
@@ -32,7 +34,7 @@ $page->BeginHTML();
         </div>
     </fieldset>
     <fieldset>
-        <?php HTMLControls::DateTimeRange(); ?> 
+        <?php HTMLControls::DateTimeRange(); ?>
     </fieldset>
     <fieldset class="show">
         <p>Show Columns:</p>

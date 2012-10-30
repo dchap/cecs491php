@@ -8,12 +8,13 @@ use Lib\Data_Query\Query_Builder_Main as QueryBuilder;
 use Lib\Data_Query\Query_Process as QueryProcess;
 use Lib\Error\Exception_Handler as ExceptionHandler;
 
-if (isset($_GET['action-type']) && $_GET['action-type'] == 'validate')
+//if (isset($_GET['action-type']) && $_GET['action-type'] == 'validate')
+if (isset($_GET['action-type']))
 {
-    QueryBuilder::ValidateRequired($_GET); 
+    //QueryBuilder::ValidateRequired($_GET); 
     $sqlCount = QueryBuilder::GenerateCountQuery($_GET);
-    if (QueryProcess::GetCount($sqlCount) == 0)
-       ExceptionHandler::Error404("No results found.");
+  //  if (QueryProcess::GetCount($sqlCount) == 0)
+  //     ExceptionHandler::Error404("No results found.");
 }
 elseif (isset($_GET['action-type']) && $_GET['action-type'] == 'download')
 {
@@ -27,8 +28,8 @@ elseif (isset($_GET['action-type']) && $_GET['action-type'] == 'query')
         $sql = QueryBuilder::GenerateQuery($_GET);
         $sqlCount = QueryBuilder::GenerateCountQuery($_GET);
         $totalCount = QueryProcess::GetCount($sqlCount);
-        if ($totalCount == 0)
-            ExceptionHandler::Error404("No results found.");
+     //   if ($totalCount == 0)
+      //      ExceptionHandler::Error404("No results found.");
     }
     else
     {
