@@ -111,6 +111,7 @@ namespace Lib\Data_Query
             
             $db = MysqliConnect::GetMysqliInstance();
             $result = $db->query($sql);
+            
             // separate count for each 'unioned' query
             while ($row = $result->fetch_row())
                 $count += $row[0];

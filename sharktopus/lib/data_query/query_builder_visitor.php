@@ -15,6 +15,7 @@ namespace Lib\Data_Query
         public static function GenerateQuery(array $queryString, $export = false)
         { 
             self::ValidateRequired($queryString);
+            
             $select = self::BuildSelectClause($queryString[QueryConstants::Fields], $export);
             $from = self::BuildFromClause();
             $where = self::BuildWhereClause($queryString);
@@ -35,6 +36,7 @@ namespace Lib\Data_Query
          * @param array $queryString $_GET array
          * @return string sql statement for counting total rows
          */
+        
         public static function GenerateCountQuery(array $queryString)
         {
             $select = "SELECT COUNT(*)";
@@ -44,6 +46,7 @@ namespace Lib\Data_Query
                         
             return $fullQuery;
         }
+        
         
         protected static function BuildFullQuery($select, $from, $where, $sort = '', $order = '')
         {
@@ -142,7 +145,6 @@ namespace Lib\Data_Query
                     }
                 }
             }
-            
             return substr($select, 0, -2);
         }
         
@@ -164,7 +166,10 @@ namespace Lib\Data_Query
             $frequencyCodespace = trim($db->real_escape_string($query[QueryConstants::FrequencyCodespace]));
             $transmitterID = trim($db->real_escape_string($query[QueryConstants::TransmitterID]));
             MysqliConnect::Disconnect();
-
+            
+            var_dump($dateStart);
+            var_dump($dateEnd);
+            
             $where = '';
             $where .= " WHERE (`vue`.`date` BETWEEN `stations_records`.`date_in` AND `stations_records`.`date_out`)";
             if ($dateStart == '' && $dateEnd != '')
@@ -183,16 +188,16 @@ namespace Lib\Data_Query
             
             $where .= " AND `vue`.`frequency_codespace` = '$frequencyCodespace'";
             $where .= " AND `vue`.`transmitter_id` = $transmitterID";
-           
+            
             return $where;
         }
         
         public static function ValidateRequired(array $query)
         {
             $errorList = '';
-            if ($query[QueryConstants::FrequencyCodespace] == '')
+            if (isset($query[QueryConstants::FrequencyCodespace]) && $query[QueryConstants::FrequencyCodespace] == '')
                 $errorList .= "<p>Frequency codespace required</p>";
-            if ($query[QueryConstants::TransmitterID] == '')
+            if (isset($query[QueryConstants::TransmitterID]) && $query[QueryConstants::TransmitterID] == '')
                 $errorList .= "<p>Transmitter ID required</p>";
             
             if ($errorList != '')

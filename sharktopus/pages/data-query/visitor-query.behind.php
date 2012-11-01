@@ -36,6 +36,8 @@ elseif (isset($_GET['action-type']) && $_GET['action-type'] == 'query')
         $totalCount = $_GET[Constants::Count];
     }
     
+    var_dump($sql);
+    
     $sort = $_GET[Constants::SortBy];
     $order = $_GET[Constants::SortOrder];
     // uses limit of original query if not the first request

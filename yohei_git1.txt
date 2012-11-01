@@ -1,7 +1,0 @@
-this is the first text.
-yohei is practicing git.
-
-
-yohei modified the yohei_git1
-
---color-word
