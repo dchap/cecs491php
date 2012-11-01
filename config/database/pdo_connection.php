@@ -16,8 +16,7 @@ namespace Config\Database
         {
             if (!self::$db)
             {
-                self::$db = new \PDO("mysql:host=localhost" . self::$dbhost . ";dbname=" . self::$dbname, self::$dbuser, self::$dbpass);
-                //self::$db = new \PDO("mysql:host=" . self::$dbhost . ";dbname=" . self::$dbname, self::$dbuser, self::$dbpass);
+                self::$db = new \PDO("mysql:host=" . self::$dbhost . ";dbname=" . self::$dbname, self::$dbuser, self::$dbpass);
                 self::$db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                 self::$db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, FALSE);
                 self::$db->setAttribute(\PDO::ATTR_ORACLE_NULLS, \PDO::NULL_TO_STRING);

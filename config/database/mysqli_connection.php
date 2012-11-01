@@ -18,15 +18,7 @@ namespace Config\Database
         }
         
         public static function GetMysqliInstance()
-        {   
-/*
-            self::$db = mysql_connect($dbhost, $dbuser , $dbpass);
-            if (!self::$db)
-            {
-                die('Could not connect: ' . mysql_error());
-            }
-*/
-            
+        {               
             if (!(self::$db instanceof \mysqli))
             {
                 self::$db = new \mysqli(self::$dbhost, self::$dbuser, self::$dbpass, self::$dbname)

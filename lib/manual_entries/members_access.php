@@ -161,7 +161,6 @@ namespace Lib\Manual_Entries
         {
             try
             {
-                
                 $conn = PdoConnect::GetPDOInstance();
                 $sql = "SELECT `account_type`, CONCAT(`fname`, ' ', `lname`) AS 'name'
                         FROM members WHERE username = :username
@@ -176,7 +175,6 @@ namespace Lib\Manual_Entries
             }
             catch (\PDOException $e)
             {
-                
                 PdoConnect::Disconnect();
                 ExceptionHandler::Error404("There was an error processing the request");
             }

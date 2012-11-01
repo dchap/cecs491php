@@ -1,27 +1,26 @@
 <?php
-require_once substr(__FILE__, 0, -4) . ".behind.php";
-use Config\Constants\Urls as Url;
-use Config\Constants\Session_Variables as Session;
-session_start();
+    require_once substr(__FILE__, 0, -4) . ".behind.php";
+    use Config\Constants\Urls as Url;
+    use Config\Constants\Session_Variables as Session;
+    session_start();
 
-/*if (isset($_GET['denied']))
-{
-    $showPermissionError = true;
-}
-elseif (isset($_GET['redirect']))
-{
-    $redirect = ($_GET['redirect']);
-}*/
+    if (isset($_GET['denied']))
+    {
+        $showPermissionError = true;
+    }
+    elseif (isset($_GET['redirect']))
+    {
+        $redirect = ($_GET['redirect']);
+    }
 
-if (isset($_SESSION[Session::AccountType]))
-{
-    unset($_SESSION[Session::AccountType]);
-    unset($_SESSION[Session::Name]);
-    session_write_close();       
-}
-
-$_SESSION[Session::AccountType] = Session::Superadmin;
+    if (isset($_SESSION[Session::AccountType]))
+    {
+        unset($_SESSION[Session::AccountType]);
+        unset($_SESSION[Session::Name]);
+        session_write_close();
+    }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,19 +29,17 @@ $_SESSION[Session::AccountType] = Session::Superadmin;
     <link rel="stylesheet" type="text/css" href="/assets/home/login.min.css" />
     <script type="text/javascript">
         $(function() { 
-           
+            
             // can only show one error or the other when trying to access another page
-            /*var redirect = '<?php //echo isset($redirect) ? $redirect : null; ?>';
-            var showPermission = '<?php //echo isset($showPermissionError) ? "yes" : null; ?>';
+            var redirect = '<?php echo isset($redirect) ? $redirect : null; ?>';
+            var showPermission = '<?php echo isset($showPermissionError) ? "yes" : null; ?>';
             if (showPermission)
                 $('#error-permission').show();
             else if (redirect)
-                $('#error-login').show();*/
-            
+                $('#error-login').show();
             
             function Submit() {
-                              
-                /*$('.errors').hide();
+                $('.errors').hide();
                 var validated = true;
                 if ($('.enter[name=user]').val().trim() == '') {
                     $('#error-user').fadeIn();
@@ -53,48 +50,41 @@ $_SESSION[Session::AccountType] = Session::Superadmin;
                     validated = false;
                 }
                 if (!validated)
-                    return;*/
-               
-               
-//                $.post('index.behind.php', 
-//                    $('form').serialize(),
-//                    //{name: $('#user').val(), pass: $('#pass').val()},
-//                    function(data) {
-                        
-                        //alert(data);
-                        /*if (data == 'none') {
-                            alert("none");
+                    return;
+                
+                $.post('index.behind.php', 
+                    $('form').serialize(), 
+                    function(data)
+                    {
+                        if (data == 'none')
                             $('#error-record').fadeIn();
+                        else if (data == 'user')
+                        {
+                            window.location.replace('<?php echo Url::Query ?>');
                         }
-                        else if (data == 'user') {
-                            alert("user");
-                            window.location.replace('<?php //echo Url::Query ?>');
-                        }
-                        else if (data == 'superuser' || data == 'admin' || data == 'superadmin') {                           
-                            alert("admin");
+                        else if (data == 'superuser' || data == 'admin' || data == 'superadmin')
+                        {
                             if (redirect)
                                 window.location.replace(redirect);
-                            else*/
-//                                redirect = '<?php //echo Url::Query ?>';
-                                window.location.replace('<?php echo Url::Home ?>');
-                        /*}
-                        else
-                            alert("nothing");*/                              
-                    //}
-                //); 
-            }//End Submit()
+                            else
+                                window.location.replace('<?php echo Url::Home ?>'); 
+                        }
+                    }
+                ); 
+            }
             
             $(':button').click(Submit);
-            $('form').bind("keypress", 
-                function(e) {
-                    if (e.which == 13) {
-                        Submit();
+            $('form').keypress( function(e)
+            {   
+                if (e.which == 13)
+                {
+                    Submit();
                 }
             });
 
             $(':input[name=user]').focus();
         });
-    </script> 
+    </script>
 </head>
 <body>
 <!--    <div id="img-div">
