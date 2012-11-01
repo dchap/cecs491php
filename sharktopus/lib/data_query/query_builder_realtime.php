@@ -14,17 +14,16 @@ namespace Lib\Data_Query
          */
         public static function GenerateQuery()
         {             
-            $select = "SELECT 'stations_records'.'stations_name', 'vue'.'date', 'vue'.'time', 'vue'.'transmitter_id', 'fish'.'genus', 'fish'.'species' ";
+            $select = "SELECT `stations_records`.`stations_name`, `vue`.`date`, `vue`.`time`, `vue`.`transmitter_id`, `fish`.`genus`, `fish`.`species` ";
             
             $from = self::BuildFromClause();
-            //var_dump($from);
-            //$where = self::BuildWhereClause();
+            $where = self::BuildWhereClause();
             
             $db = MysqliConnect::GetMysqliInstance();
             $sort = "'date'";
             $order = "asc";
             
-            $fullQuery = self::BuildFullQuery($select, $from, /*$where,*/ $sort, $order);
+            $fullQuery = self::BuildFullQuery($select, $from, $where, $sort, $order);
 
             return $fullQuery;
         }
@@ -32,13 +31,13 @@ namespace Lib\Data_Query
         
         protected static function BuildFromClause()
         {
-            $fromStatement = "FROM 'projects_fish' INNER JOIN 'fish' on 'projects_fish'.'fish_id' = 'fish'.'id' ";
-            $fromStatement .= "INNER JOIN 'projects' on 'projects_fish'.'projects_name' = 'projects'.'name' ";
-            $fromStatement .= "INNER JOIN 'projects_stations' on 'projects'.'name' = 'projects_stations'.'projects_name' ";
-            $fromStatement .= "INNER JOIN 'stations' on 'projects_stations'.'stations_name' = 'stations'.'name' ";
-            $fromStatement .= "INNER JOIN 'stations_records' on 'stations'.'name' = 'stations_records'.'stations_name' ";
-            $fromStatement .= "INNER JOIN 'receivers' on 'stations_records'.'receivers_id' = 'receivers'.'id' ";
-            $fromStatement .= "INNER JOIN 'vue' on 'receivers'.'id' = 'vue'.'receivers_id' ";
+            $fromStatement = "FROM `projects_fish` INNER JOIN `fish` on `projects_fish`.`fish_id` = `fish`.`id` ";
+            $fromStatement .= "INNER JOIN `projects` on `projects_fish`.`projects_name` = `projects`.`name` ";
+            $fromStatement .= "INNER JOIN `projects_stations` on `projects`.`name` = `projects_stations`.`projects_name` ";
+            $fromStatement .= "INNER JOIN `stations` on `projects_stations`.`stations_name` = `stations`.`name` ";
+            $fromStatement .= "INNER JOIN `stations_records` on `stations`.`name` = `stations_records`.`stations_name` ";
+            $fromStatement .= "INNER JOIN `receivers` on `stations_records`.`receivers_id` = `receivers`.`id` ";
+            $fromStatement .= "INNER JOIN `vue` on `receivers`.`id` = `vue`.`receivers_id` ";
             
             return $fromStatement;
         }
@@ -61,35 +60,33 @@ namespace Lib\Data_Query
             $dateEnd = trim($db->real_escape_string($dateEnd));
             MysqliConnect::Disconnect();
             
-            $where = " WHERE ('vue'.'date' BETWEEN 'stations_records'.'date_in' AND 'stations_records'.'date_out')";
+            $where = " WHERE (`vue`.`date` BETWEEN `stations_records`.`date_in` AND `stations_records`.`date_out`)";
             if ($dateStart == '' && $dateEnd != '')
-                $where .= " AND 'vue'.'date' < $dateEnd";
+                $where .= " AND `vue`.`date` < $dateEnd";
             elseif ($dateStart != '' && $dateEnd == '')
-                $where .= " AND 'vue'.'date' > $dateStart";
+                $where .= " AND `vue`.`date` > $dateStart";
             elseif ($dateStart != '' && $dateEnd != '')
-                $where .= " AND ('vue'.'date' BETWEEN '$dateStart' AND '$dateEnd')";
+                $where .= " AND (`vue`.`date` BETWEEN '$dateStart' AND '$dateEnd')";
             
-            var_dump($where);
+//            var_dump($where);
             return $where;
         }
         
         
-        protected static function BuildFullQuery($select, $from, /*$where,*/ $sort = '', $order = '')
+        protected static function BuildFullQuery($select, $from, $where, $sort = '', $order = '')
         {
             $orderClause = $sort == '' ? "" : " ORDER BY $sort $order";
             if (is_string($from))
             {
-                $fullQuery = $select . $from /*. $where . $orderClause*/;                
+                $fullQuery = $select . $from . $where . $orderClause;                
             }
             else
             {
-                $fullQuery = $select . $from[0] /*. $where . " UNION "*/;
-                $fullQuery .= $select . $from[1] /*. $where . $orderClause*/;  
+                $fullQuery = $select . $from[0] . $where . " UNION ";
+                $fullQuery .= $select . $from[1] . $where . $orderClause;  
             }
-
-            //$fullQuery .= ';';
-            echo $fullQuery;
             
+//            echo $fullQuery;           
             return $fullQuery;
         }         
     }

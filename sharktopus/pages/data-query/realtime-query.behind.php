@@ -11,34 +11,37 @@ use Lib\Error\Exception_Handler as ExceptionHandler;
 
 if (isset($_GET['action-type']) && $_GET['action-type'] == 'validate')
 { 
-//    $sqlCount = QueryBuilder::GenerateCountQuery();
-//    if (QueryProcess::GetCount($sqlCount) == 0)
-//       ExceptionHandler::Error404("No results found.");
+    $sqlCount = QueryBuilder::GenerateCountQuery();
+    if (QueryProcess::GetCount($sqlCount) == 0)
+       ExceptionHandler::Error404("No results found.");
 }
 elseif (isset($_GET['action-type']) && $_GET['action-type'] == 'query')
 {
     if (!isset($_GET[Constants::Page]))
     {
         $sql = QueryBuilder::GenerateQuery();
-        
-        //var_dump($sql);
-//        $b = mysql_query($sql);
-//        
-//        $totalCount = mysql_num_rows($b);
-//        if ($totalCount == 0 )
-//            totalCount == 0; 
-//        else
-//            $totalCount = QueryProcess::GetCount($sql);
-//        
+//        $totalCount = QueryProcess::GetCount($sql);
 //        if ($totalCount == 0)
 //            ExceptionHandler::Error404("No results found.");
+//        
+        
+        //var_dump($sql);
+        $b = mysql_query($sql);
+        
+        $numRows = mysql_num_rows($b);
+        if ($numRows == false)
+            $totalCount = 0; 
+        else
+            $totalCount = QueryProcess::GetCount($sql);
+        
+        if ($totalCount == 0)
+            ExceptionHandler::Error404("No results found.");
     }
     else
     {
         $sql = QueryBuilder::GenerateQuery();
         $totalCount = $_GET[Constants::Count];
     }
-    $totalCount = 100;
     
     $sort = $_GET[Constants::SortBy];
     $order = $_GET[Constants::SortOrder];
