@@ -30,14 +30,16 @@ if (isset($_SESSION[Session::AccountType]))
         $(function() { 
             
             // can only show one error or the other when trying to access another page
-            var redirect = '<?php echo isset($redirect) ? $redirect : null; ?>';
-            var showPermission = '<?php echo isset($showPermissionError) ? "yes" : null; ?>';
-            if (showPermission)
-                $('#error-permission').show();
-            else if (redirect)
-                $('#error-login').show();
+            //var redirect = '<?//php echo isset($redirect) ? $redirect : null; ?>';
+           // var showPermission = '<?php echo isset($showPermissionError) ? "yes" : null; ?>';
+           // if (showPermission)
+            //    $('#error-permission').show();
+           // else if (redirect)
+            //    $('#error-login').show();
             
             function Submit() {
+                window.location.replace('<?php echo Url::Home ?>'); 
+                /*
                 $('.errors').hide();
                 var validated = true;
                 if ($('.enter[name=user]').val().trim() == '') {
@@ -57,16 +59,18 @@ if (isset($_SESSION[Session::AccountType]))
                         if (data == 'none')
                             $('#error-record').fadeIn();
                         else if (data == 'user') {
-                            window.location.replace('<?php echo Url::Query ?>');
+                            window.location.replace('<?//php echo Url::Query ?>');
                         }
                         else if (data == 'superuser' || data == 'admin' || data == 'superadmin') {
                             if (redirect)
-                                window.location.replace(redirect);
+                                window.location.replace('<?//php echo Url::Home ?>'); 
+                                //window.location.replace(redirect);
                             else
-                                window.location.replace('<?php echo Url::Home ?>'); 
+                                window.location.replace('<?//php echo Url::Home ?>'); 
                         }
                     }
                 ); 
+                */
             }
             
             $(':button').click(Submit);

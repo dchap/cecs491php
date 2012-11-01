@@ -49,7 +49,7 @@ namespace Lib\Data_Query
             $where = self::BuildWhereClause($queryString);
              */
             $select = "SELECT COUNT(*)";
-            $from = "FROM fish";
+            $from = "FROM vue";
             $where = '';
             $fullQuery = self::BuildFullQuery($select, $from, $where);
                         
