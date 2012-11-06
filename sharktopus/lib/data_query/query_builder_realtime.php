@@ -17,9 +17,7 @@ namespace Lib\Data_Query
             $select = "SELECT `stations_records`.`stations_name`, `vue`.`date`, `vue`.`time`, `vue`.`transmitter_id`, `fish`.`genus`, `fish`.`species` ";
             
             $from = self::BuildFromClause();
-            $where = self::BuildWhereClause();
-            
-            $db = MysqliConnect::GetMysqliInstance();
+            $where = self::BuildWhereClause();            
             $sort = "'date'";
             $order = "asc";
             
@@ -27,18 +25,28 @@ namespace Lib\Data_Query
 
             return $fullQuery;
         }
+        
+        public static function GenerateCountQuery()
+        {
+            $select = "SELECT COUNT(*) ";
+           
+            //$select = "SELECT `stations_records`.`stations_name`, `vue`.`date`, `vue`.`time`, `vue`.`transmitter_id`, `fish`.`genus`, `fish`.`species` ";
+            $from = self::BuildFromClause();
+            $where = self::BuildWhereClause();
+            $fullQuery = self::BuildFullQuery($select, $from, $where);            
+            
+            return $fullQuery;
+        }
                        
         
         protected static function BuildFromClause()
         {
-            $fromStatement = "FROM `projects_fish` INNER JOIN `fish` on `projects_fish`.`fish_id` = `fish`.`id` ";
-            $fromStatement .= "INNER JOIN `projects` on `projects_fish`.`projects_name` = `projects`.`name` ";
-            $fromStatement .= "INNER JOIN `projects_stations` on `projects`.`name` = `projects_stations`.`projects_name` ";
-            $fromStatement .= "INNER JOIN `stations` on `projects_stations`.`stations_name` = `stations`.`name` ";
-            $fromStatement .= "INNER JOIN `stations_records` on `stations`.`name` = `stations_records`.`stations_name` ";
-            $fromStatement .= "INNER JOIN `receivers` on `stations_records`.`receivers_id` = `receivers`.`id` ";
-            $fromStatement .= "INNER JOIN `vue` on `receivers`.`id` = `vue`.`receivers_id` ";
+            $fromStatement = "FROM `vue` ";
             
+            $fromStatement .= "INNER JOIN `fish` on `vue`.`transmitter_id` = `fish`.`transmitter_id` ";
+            $fromStatement .= "INNER JOIN `stations_records` on `vue`.`receivers_id` = `stations_records`.`receivers_id` ";
+            $fromStatement .= "INNER JOIN `projects_stations` on `stations_records`.`stations_name` = `projects_stations`.`stations_name` ";
+           
             return $fromStatement;
         }
         
@@ -68,7 +76,6 @@ namespace Lib\Data_Query
             elseif ($dateStart != '' && $dateEnd != '')
                 $where .= " AND (`vue`.`date` BETWEEN '$dateStart' AND '$dateEnd')";
             
-//            var_dump($where);
             return $where;
         }
         

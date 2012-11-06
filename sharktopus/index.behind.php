@@ -21,45 +21,39 @@ use Lib\Manual_Entries\Members_Access as Members;
 use Config\Constants\Account_Types as AccTypes;
 use Config\Constants\Session_Variables as Session;
 
-//if (isset($_POST['user']))
-//{
-//    alert($_POST['user']);
-//}
-
-
-
 if (isset($_POST['user']) && isset($_POST['pass']))
-{ 
+{
+    echo "asdf";
+
+    //echo $_POST['user'];
     $user = Members::GetMember($_POST['user'], $_POST['pass']);
-    if ($user == false)
-        exit("none");
-   
+    //if ($user == false)
+    //    exit("none");
     session_start();
-    $_SESSION[Session::Name] = $user['name'];
-    switch ($user['account_type'])
+//    $_SESSION[Session::Name] = $user['name'];
+    $_SESSION[Session::Name] = "admin";
+    //$_SESSION[Session::Name] = "admin";
+
+
+//    switch ($user['account_type'])
+    //$type = 'superadmin';
+   // var_dump($user['account_type']);
+
+    switch ('superadmin')
     {
         case AccTypes::User :
             $_SESSION[Session::AccountType] = Session::User;
-            //$value = 'user';
             exit('user');
-            //return('user');
         case AccTypes::Superuser :
             $_SESSION[Session::AccountType] = Session::Superuser;
-            //$value = 'superuser';
             exit('superuser');
-            //return('superuser');
         case AccTypes::Admin :
             $_SESSION[Session::AccountType] = Session::Admin;
-            //$value = 'admin';
             exit('admin');
-            //return('admin');
         case AccTypes::Superadmin :
             $_SESSION[Session::AccountType] = Session::Superadmin;
-            //$value = 'superadmin';
-            exit('superadmin');
-            //return('superadmin');
-    } 
-    
-    //echo json_encode(array("returnValue"=>"This is returned from PHP : ".$value)); 
+            exit('superadmin');           
+    }
+
 }
 ?>

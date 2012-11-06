@@ -1,4 +1,5 @@
 <?php
+header( "refresh:600;url=realtime-query.php" );
 require_once substr(__FILE__, 0, -4) . '.behind.php';
 use Lib\Views\HTMLControls as HTMLControls;
 use Config\Constants\Urls as Urls;

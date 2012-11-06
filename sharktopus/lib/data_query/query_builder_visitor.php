@@ -167,8 +167,6 @@ namespace Lib\Data_Query
             $transmitterID = trim($db->real_escape_string($query[QueryConstants::TransmitterID]));
             MysqliConnect::Disconnect();
             
-            var_dump($dateStart);
-            var_dump($dateEnd);
             
             $where = '';
             $where .= " WHERE (`vue`.`date` BETWEEN `stations_records`.`date_in` AND `stations_records`.`date_out`)";
