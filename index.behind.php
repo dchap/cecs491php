@@ -24,17 +24,13 @@ use Config\Constants\Session_Variables as Session;
 if (isset($_POST['user']) && isset($_POST['pass']))
 {
     $user = Members::GetMember($_POST['user'], $_POST['pass']);
-    //if ($user == false)
-    //    exit("none");
+    if ($user == false)
+        exit("none");
     session_start();
     $_SESSION[Session::Name] = $user['name'];
-    //$_SESSION[Session::Name] = "admin";
 
 
     switch ($user['account_type'])
-    //$num = 'superadmin';
-    //$type = $user['account_type'];
-    //switch ($type)
     {
         case AccTypes::User :
             $_SESSION[Session::AccountType] = Session::User;
@@ -48,9 +44,7 @@ if (isset($_POST['user']) && isset($_POST['pass']))
         case AccTypes::Superadmin :
             $_SESSION[Session::AccountType] = Session::Superadmin;
             exit('superadmin');
-        default :
-            $_SESSION[Session::AccountType] = Session::Superadmin;
-            exit('superadmin');
     }
+
 }
 ?>

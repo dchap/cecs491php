@@ -3,7 +3,7 @@ namespace Config\Database
 {
     class Mysqli_Connection
     {
-        private static $dbuser = "user";             //user name for the database
+        private static $dbuser = "username";             //user name for the database
         private static $dbpass = "password"; 
         //private static $dbuser = "csulbsha_shark";             //user name for the database
         //private static $dbpass = "acoustictelemetry";      //the password to access the database

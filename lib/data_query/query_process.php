@@ -46,9 +46,8 @@ namespace Lib\Data_Query
 
             $result = $db->query($sql);
             if (!$result)
-            //if ($result == 0)
-                exit("I'm here...");
-                //exit("No results found.");
+            if ($result == 0)
+                exit("No results found 3.");
             
             $column = 0;
             $table = "<table class='bordered-table zebra-striped'>\n<thead class='blue'>\n<tr>\n";
@@ -137,6 +136,7 @@ namespace Lib\Data_Query
             $prev = $page - 1;
             $next = $page + 1;
             $lastpage = ceil($totalCount / $limit);
+            //$lastpage = ceil($totalCount / $limit);
             $pageBeforeLast = $lastpage - 1;
 
             $adjacents = 3;

@@ -6,6 +6,7 @@ $page = new Lib\Views\Page(Session::Superuser);
 $page->IncludeJs("/assets/shared/js/bootstrap/bootstrap-dropdown.js");
 $page->BeginHTML();
 
+//var_dump($user['account_type']);
 ?>
 
 <ul class="tabs" data-tabs="tabs">

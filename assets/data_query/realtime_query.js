@@ -25,9 +25,11 @@ jQuery(function($) {
             $(':radio[value=recognized-fish]').click();
         }
     });
-
-    Query.MakeQuery = function() {
-        $('#query-button').button('loading');
+//==============================================================================
+   
+   Query.MakeRealtimeQuery = function() {
+   // Query.MakeQuery = function() {
+        $('#query-chbutton').button('loading');
         $('#results, #errors').html('');
         $(':hidden[name=action-type]').val('query');
         var img = $('#main-form').find('img.upload-indicator').get(0);
@@ -37,22 +39,28 @@ jQuery(function($) {
             type: 'GET',
             success: function(data) {
                 $('#results').append(data);
-                $('#query-button').button('reset');
+                $('#query-chbutton').button('reset');
                 $(img).hide();
             },
             error: function(jqXHR) {
                 $('#errors').append('<p>' + jqXHR.responseText + '</p>');
-                $('#query-button').button('reset');
+                $('#query-chbutton').button('reset');
                 $(img).hide();
             }
         });
     };
-
-    $('#query-button').click( function() {
+    
+       ////    waitUntilExists($('#query-chbutton'), function(){
+    $('#query-chbutton').ready( function() {
         if ($('#main-form').valid())
-            Query.MakeQuery();
+            Query.MakeRealtimeQuery();
     });
-
+//    $('#query-chbutton').ready( function() {Query.MakeQuery(); });
+//    $('#query-chbutton').click( function() {
+//        //if ($('#main-form').valid())
+//            Query.MakeQuery();
+//    });
+//==============================================================================
     $('.header').live('click', function() {
         var sortby = $(this).attr('data-sort');
         $(':hidden[name=sort-by]').val(sortby);
@@ -71,7 +79,7 @@ jQuery(function($) {
         $(':hidden[name=action-type]').val('query');
         var queryString = $('#main-form').serialize() + '&' + $(this).attr('href') + '&' + $('.pagination').attr('data-count');
         $('#results, #errors').html('');
-        $('#query-button').button('loading');        
+        $('#query-chbutton').button('loading');        
         var img = $('#main-form').find('img.upload-indicator').get(0);
         $(img).fadeIn();
         $.ajax({
@@ -80,12 +88,12 @@ jQuery(function($) {
             data: queryString,
             success: function(data) {
                 $('#results').append(data);
-                $('#query-button').button('reset');
+                $('#query-chbutton').button('reset');
                 $(img).hide();
             },
             error: function(jqXHR) {
                 $('#errors').append('<p>' + jqXHR.responseText + '</p>');
-                $('#query-button').button('reset');
+                $('#query-chbutton').button('reset');
                 $(img).hide();
             }
         });

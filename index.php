@@ -28,8 +28,8 @@
     <link rel="stylesheet" type="text/css" href="/assets/shared/global.css" />
     <link rel="stylesheet" type="text/css" href="/assets/home/login.min.css" />
     <script type="text/javascript">
-        $(function() { 
-            
+        $(function()
+        { 
             // can only show one error or the other when trying to access another page
             var redirect = '<?php echo isset($redirect) ? $redirect : null; ?>';
             var showPermission = '<?php echo isset($showPermissionError) ? "yes" : null; ?>';

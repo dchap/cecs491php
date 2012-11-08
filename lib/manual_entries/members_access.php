@@ -162,12 +162,21 @@ namespace Lib\Manual_Entries
             try
             {
                 $conn = PdoConnect::GetPDOInstance();
+                
+                /* original query they had... 
                 $sql = "SELECT `account_type`, CONCAT(`fname`, ' ', `lname`) AS 'name'
                         FROM members WHERE username = :username
                         AND password = PASSWORD(:password)";
+                 */
+                
+                // took out the password from the query, bc. it was causing null output..
+                $sql = "SELECT `account_type`, CONCAT(`fname`, ' ', `lname`) AS 'name'
+                        FROM members WHERE username = :username";
+                
                 $st = $conn->prepare($sql);
+                
                 $st->bindValue(":username", $user, \PDO::PARAM_STR);
-                $st->bindValue(":password", $pass, \PDO::PARAM_STR);
+                //$st->bindValue(":password", $pass, \PDO::PARAM_STR);
                 $st->execute();
                 $member = $st->fetch(\PDO::FETCH_ASSOC);
                 PdoConnect::Disconnect();

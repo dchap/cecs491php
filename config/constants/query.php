@@ -25,7 +25,15 @@ namespace Config\Constants
         const Genus = "genus";
         const Species = "species";
         const FrequencyCodespace = "frequency_codespace";
-        const TransmitterID = "transmitterid";
+        //const TransmitterID = "transmitterid";
+        const TransmitterID = "transmitter_id";
+        const Weeks = 15;
+        //const Weeks = 150;
+        const Days = 7;
+        const Hours = 24;
+        const Minutes = 60;
+        const Seconds = 60;
+        
         
         // uploads keys
         const Filetypes = "filetypes";
