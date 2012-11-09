@@ -5,3 +5,6 @@ yohei is practicing git.
 yohei modified the yohei_git1
 
 --color-word
+
+
+asdfasdf;asekfjaep'fokqeop[fk;
