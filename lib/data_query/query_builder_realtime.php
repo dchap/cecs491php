@@ -88,7 +88,13 @@ namespace Lib\Data_Query
         
         protected static function BuildWhereClause()
         {
-            date_default_timezone_get();
+            date_default_timezone_set('America/Los_Angeles');
+            //date_default_timezone_get();
+            //date('H:i:s');
+
+            //$dateTime = new DateTime("now", new DateTimeZone($timeLocation));
+            //echo $dateTime->format("Y-m-d H:i:s");
+            echo date_default_timezone_get();
             $startDateTimestamp = time() - QueryConstants::Weeks * QueryConstants::Days * QueryConstants::Hours
                           * QueryConstants::Minutes * QueryConstants::Seconds;            
             $endDateTimestamp = time();
@@ -102,8 +108,9 @@ namespace Lib\Data_Query
             $dateStart = trim($db->real_escape_string($dateStart));
             $dateEnd = trim($db->real_escape_string($dateEnd));
             MysqliConnect::Disconnect();
-                
-            $where = " WHERE (`members`.`username` = '" .$_SESSION[Session::Name] ."')";
+              
+            $where = " WHERE (`members`.`username` = 'dChap')";
+            //$where = " WHERE (`members`.`username` = '" .$_SESSION[Session::Name] ."')";
             $where .= " AND (`vue`.`date` BETWEEN `stations_records`.`date_in` AND `stations_records`.`date_out`)";
             
             if ($dateStart == '' && $dateEnd != '')

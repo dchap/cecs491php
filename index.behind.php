@@ -28,6 +28,7 @@ if (isset($_POST['user']) && isset($_POST['pass']))
         exit("none");
     session_start();
     $_SESSION[Session::Name] = $user['name'];
+    //echo $_SESSION[Session::Name];
 
 
     switch ($user['account_type'])
