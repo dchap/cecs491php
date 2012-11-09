@@ -3,126 +3,49 @@ set_include_path($_SERVER['DOCUMENT_ROOT']);
 spl_autoload_extensions(".php");
 spl_autoload_register();
 use Config\Constants\Query as Constants;
-use Config\Constants\Urls as Urls;
 use Lib\Data_Query\Query_Builder_Realtime as QueryBuilder;
 use Lib\Data_Query\Query_Process as QueryProcess;
 use Lib\Error\Exception_Handler as ExceptionHandler;
 
-//if (!(isset($_GET['action-type'])) && $_GET['action-type'] == 'validate')
-//{
-//    QueryBuilder::ValidateRequired($_GET); 
-//    $sqlCount = QueryBuilder::GenerateCountQuery($_GET);
-//    if (QueryProcess::GetCount($sqlCount) == 0)
-//       ExceptionHandler::Error404("No results found.");
-//}
 
 if (isset($_GET['action-type']) && $_GET['action-type'] == 'query')
-//if (!(isset($_GET['action-type'])) || $_GET['action-type'] == 'query')
-{
-    if (!isset($_GET[Constants::Page]))
-    {
-        $sql = QueryBuilder::GenerateQuery($_GET);
-        $sqlCount = QueryBuilder::GenerateCountQuery($_GET);
-        $totalCount = QueryProcess::GetCount($sqlCount);
-        if ($totalCount == 0)
-            ExceptionHandler::Error404("No results found.");
-    }
-    else
-    {
-        $sql = QueryBuilder::GenerateQuery($_GET);
-        $totalCount = $_GET[Constants::Count];
-    }
+{    
+    @session_start();   
     
-    //$isSensor = $_GET[Constants::InnerQueryType] == 'sensor' ? true : false;
-    $sort = $_GET[Constants::SortBy];
-    $order = $_GET[Constants::SortOrder];
+    //if the page refreshed, store the previous query's count, else store 0
+    $previousCount = isset($_SESSION[Constants::PreviousCount]) ? $_SESSION[Constants::PreviousCount] : 0;
+    
+    $sql = QueryBuilder::GenerateQuery();       
+    $sqlCount = QueryBuilder::GenerateCountQuery();
+    $totalCount = QueryProcess::GetCount($sqlCount);
+    
+    if ($totalCount == 0)
+        ExceptionHandler::Error404("No results found."); 
+        
+    $sort = "date";
+    $order = "desc";
     // uses limit of original query if not the first request
     $limit = $_GET[Constants::Limit];
     $page = isset($_GET[Constants::Page]) ? $_GET[Constants::Page] : 1;
+
     
-    QueryProcess::GeneratePagination($page, $limit, $totalCount);
-    QueryProcess::GenerateTable($sql, $limit, $page, $sort, $order);
-    QueryProcess::GeneratePagination($page, $limit, $totalCount);
-    $fuck = FALSE;
+    //If current count is > previous count, highlight new data
+    if (($totalCount > $previousCount) && ($previousCount > 0)) { 
+        echo '<h1>New data has just arrived!</h1>';
+        
+        $newDataCount = $totalCount - $previousCount;
+        
+        QueryProcess::GeneratePagination($page, $limit, $totalCount);
+        QueryProcess::GenerateRealTimeTable($sql, $limit, $page, $sort, $order, $newDataCount);
+    }
+    else {
+        QueryProcess::GeneratePagination($page, $limit, $totalCount);
+        QueryProcess::GenerateTable($sql, $limit, $page, $sort, $order);
+    }
+    
+    QueryProcess::GeneratePagination($page, $limit, $totalCount);    
+    $_SESSION[Constants::PreviousCount] = $totalCount;
 }
+
 ?>
 
-<script>
-    function MakeRealtimeQuery ()
-    {
-        $('#query-button').button('loading');
-        $('#results, #errors').html('');
-        $(':hidden[name=action-type]').val('query');
-        var img = $('#main-form').find('img.upload-indicator').get(0);
-        $(img).fadeIn();
-        $('#main-form').ajaxSubmit({
-            url: Query.target,
-            type: 'GET',
-            success: function(data)
-            {
-                $('#results').append(data);
-                $('#query-button').button('reset');
-                $(img).hide();
-            },
-            error: function(jqXHR)
-            {
-                $('#errors').append('<p>' + jqXHR.responseText + '</p>');
-                $('#query-button').button('reset');
-                $(img).hide();
-            }
-        });
-    };
-</script>
-
-
-
-<?/*php
-set_include_path($_SERVER['DOCUMENT_ROOT']);
-spl_autoload_extensions(".php");
-spl_autoload_register();
-use Config\Constants\Query as Constants;
-use Config\Constants\Urls as Urls;
-use Lib\Data_Query\Query_Builder_Main as QueryBuilder;
-use Lib\Data_Query\Query_Process as QueryProcess;
-use Lib\Error\Exception_Handler as ExceptionHandler;
-
-if (isset($_GET['action-type']) && $_GET['action-type'] == 'validate')
-{
-    QueryBuilder::ValidateRequired($_GET); 
-    $sqlCount = QueryBuilder::GenerateCountQuery($_GET);
-    if (QueryProcess::GetCount($sqlCount) == 0)
-       ExceptionHandler::Error404("No results found.");
-}
-elseif (isset($_GET['action-type']) && $_GET['action-type'] == 'download')
-{
-    $sql = QueryBuilder::GenerateQuery($_GET, true);
-    QueryProcess::ExportCSV($sql);
-}
-elseif (isset($_GET['action-type']) && $_GET['action-type'] == 'query')
-{
-    if (!isset($_GET[Constants::Page]))
-    {
-        $sql = QueryBuilder::GenerateQuery($_GET);
-        $sqlCount = QueryBuilder::GenerateCountQuery($_GET);
-        $totalCount = QueryProcess::GetCount($sqlCount);
-        if ($totalCount == 0)
-            ExceptionHandler::Error404("No results found.");
-    }
-    else
-    {
-        $sql = QueryBuilder::GenerateQuery($_GET);
-        $totalCount = $_GET[Constants::Count];
-    }
-    
-    $isSensor = $_GET[Constants::InnerQueryType] == 'sensor' ? true : false;
-    $sort = $_GET[Constants::SortBy];
-    $order = $_GET[Constants::SortOrder];
-    // uses limit of original query if not the first request
-    $limit = $_GET[Constants::Limit];
-    $page = isset($_GET[Constants::Page]) ? $_GET[Constants::Page] : 1;
-    
-    QueryProcess::GeneratePagination($page, $limit, $totalCount);
-    QueryProcess::GenerateTable($sql, $limit, $page, $sort, $order, $isSensor);
-    QueryProcess::GeneratePagination($page, $limit, $totalCount);
-}
-*/?>

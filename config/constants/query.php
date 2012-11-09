@@ -47,6 +47,9 @@ namespace Config\Constants
         const Sensor = "sensor";
         const RecognizedFish = "recognized-fish";
         const UnrecognizedFish = "unrecognized-fish";
+        
+        
+        const PreviousCount = "previous_count";
     }
 
 }

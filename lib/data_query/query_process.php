@@ -46,8 +46,7 @@ namespace Lib\Data_Query
 
             $result = $db->query($sql);
             if (!$result)
-            if ($result == 0)
-                exit("No results found 3.");
+                exit("No results found.");
             
             $column = 0;
             $table = "<table class='bordered-table zebra-striped'>\n<thead class='blue'>\n<tr>\n";
@@ -106,12 +105,93 @@ namespace Lib\Data_Query
             echo $table;
         }
         
+        
+        public static function GenerateRealTimeTable($sql, $numRows, $page, $sort, $order, $newDataCount, $isSensor = false)
+        {
+            $db = MysqliConnect::GetMysqliInstance();
+            $limit = trim($db->real_escape_string($numRows));
+            $offset = $page > 1 ? (($page - 1) * $limit) : 0; 
+            $sql .= " LIMIT $offset, $limit";
+
+            $result = $db->query($sql);
+            if (!$result)
+                exit("No results found.");
+            
+            $column = 0;
+            $table = "<table class='bordered-table zebra-striped'>\n<thead class='blue'>\n<tr>\n";
+            $fieldInfo = $result->fetch_fields();
+            
+            foreach($fieldInfo as $field)
+            {
+                switch($field->orgname)
+                {
+                    case "frequency_codespace": 
+                        $formattedName = "Codespace";
+                        break;
+                    case "transmitter_id":
+                        $formattedName = $isSensor ? "Sensor ID" : "Transmitter ID";
+                        break;
+                    case "receivers_id":
+                        $formattedName = "Receiver";
+                        break;
+                    case "sensor_value":
+                        $formattedName = "Sensor Value";
+                        break;
+                    case "sensor_unit":
+                        $formattedName = "Sensor Unit";
+                        break;
+                    case "stations_name":
+                        $formattedName = "Station";
+                        break;
+                    default:
+                        $formattedName = ucfirst($field->orgname);
+                }
+                if ($sort == $field->orgname)
+                {
+                    if ($order == 'asc')
+                        $table .= "<th class='blue header headerSortDown'";
+                    else
+                        $table .= "<th class='blue header headerSortUp'";
+                }
+                else
+                    $table .= "<th class='header'";
+                $table .= " data-sort='$field->orgname'>$formattedName</th>\n";
+                $column++;
+            }
+            $table .= "</tr>\n</thead>\n<tbody>\n";
+            $color = "light";
+            
+            $rowCount = 0;
+            while ($row = $result->fetch_row())
+            {
+                if ($rowCount < $newDataCount)
+                    $color = "red";
+                else
+                    $color = $color == "light" ? "dark" : "light";
+                
+                $rowCount++;
+                
+                $table .= "<tr class=\"$color\">\n";
+                for ($i = 0; $i < $result->field_count; $i++)
+                    $table .= "<td>$row[$i]</td>\n";
+                $table .= "</tr>\n";
+            }
+            $table .= "</tbody>\n</table>\n";
+            
+            MysqliConnect::Disconnect();
+            echo $table;
+        }
+        
+        
         public static function GetCount($sql)
         {
             $count = 0;
             
             $db = MysqliConnect::GetMysqliInstance();
+            echo "$sql";
             $result = $db->query($sql);
+
+            var_dump($result);
             // separate count for each 'unioned' query
             while ($row = $result->fetch_row())
                 $count += $row[0];
@@ -136,7 +216,6 @@ namespace Lib\Data_Query
             $prev = $page - 1;
             $next = $page + 1;
             $lastpage = ceil($totalCount / $limit);
-            //$lastpage = ceil($totalCount / $limit);
             $pageBeforeLast = $lastpage - 1;
 
             $adjacents = 3;
@@ -224,6 +303,25 @@ namespace Lib\Data_Query
             
             if ($pagination != "")
                 echo $pagination;
+        }
+        
+        
+        public static function UpdateEmail($updateQuery)
+        {
+            echo $updateQuery;
+            $db = MysqliConnect::GetMysqliInstance();
+            $result = $db->query($updateQuery);           
+            MysqliConnect::Disconnect();      
+            
+            //echo $result;
+            //var_dump($result);
+                //$result = mysql_query($updateQuery)
+            if (!$result) {
+                die('Mysql Error" '.mysql_error());
+            }
+            
+            //echo "dssfsffs";
+            //echo "Update Successful";
         }
     }
 
