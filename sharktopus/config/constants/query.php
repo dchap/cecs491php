@@ -27,7 +27,9 @@ namespace Config\Constants
         const FrequencyCodespace = "frequency_codespace";
         //const TransmitterID = "transmitterid";
         const TransmitterID = "transmitter_id";
-        const Weeks = 20;
+        
+        const PreviousCount = "previous_count";
+        const Weeks = 21;
         const Days = 7;
         const Hours = 24;
         const Minutes = 60;

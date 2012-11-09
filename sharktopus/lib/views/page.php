@@ -140,6 +140,11 @@ namespace Lib\Views
                 <li><a href="/pages/data-query/main-query.php">Main Query</a></li>
                 <li><a href="/pages/data-query/visitor-query.php">Visitor Query</a></li>
                 <li><a href="/pages/data-query/realtime-query.php">Real time Query</a></li>
+            </ul>
+            <h5>Email</h5>
+            <u1>
+                <li><a href="/pages/home/email.php">Email Setup</a></li>
+                
 <?php
         }
         

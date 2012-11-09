@@ -21,6 +21,7 @@
     }
     
     $_SESSION[Session::AccountType] = Session::Superadmin;
+    $_SESSION[Session::Name] = "dChap";
     
 ?>
 
